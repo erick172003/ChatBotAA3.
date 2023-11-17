@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBotAA3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Estilos en línea (pueden ir en el archivo style.css) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center; /* Centrar el contenido del contenedor */
+        }
+
+        #title-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        #chatbot-title {
+            display: inline-block;
+            font-size: 36px;
+            margin: 0;
+            padding: 10px;
+            background-color: #90EE90; /* Color verde claro */
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        }
+
+        #chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #90EE90; /* Borde verde claro */
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px; /* Agregado para un margen entre el cuadro del chat y el área de entrada del usuario */
+            background-color: #ffffff; /* Fondo blanco */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #90EE90;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .bot-message {
+            background-color: #add8e6;
+            border: 1px solid #1E90FF;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        #user-input {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #user-message {
+            margin-bottom: 10px;
+        }
+
+        #button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="title-container">
+            <h1 id="chatbot-title">CHATBOT</h1>
+        </div>
+        <div id="chat-container">
+            <!-- Aquí se mostrarán los mensajes del chat -->
+        </div>
+        <div id="user-input">
+            <input type="text" id="user-message" placeholder="Escribe un mensaje..." autocomplete="off">
+            <div id="button-container">
+                <button onclick="sendMessage()">Enviar</button>
+                <button onclick="resetChat()">Limpiar Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var peruvian_food_qa = {
+            "¿Cuál es el plato más famoso de la comida peruana?": "El ceviche es uno de los platos más famosos de la comida peruana.",
+            // ... (otras preguntas y respuestas)
+        };
+
+        function sendMessage() {
+            var userMessage = document.getElementById('user-message').value;
+
+            // Puedes enviar el mensaje al servidor aquí (debes implementar esta parte)
+
+            var chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML += '<div class="message user-message">' + userMessage + '</div>';
+
+            var botResponse = getBotResponse(userMessage);
+            chatContainer.innerHTML += '<div class="message bot-message">' + botResponse + '</div>';
+
+            // Hacer scroll hacia abajo para mostrar el último mensaje
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            document.getElementById('user-message').value = '';
+        }
+
+        function getBotResponse(userMessage) {
+            // Convertir el mensaje del usuario a minúsculas para hacer la comparación insensible a mayúsculas y minúsculas
+            var lowerCaseMessage = userMessage.toLowerCase();
+
+            if (lowerCaseMessage === 'hola') {
+                return 'Hola, ¿qué tal? ¿En qué te puedo ayudar?';
+            } else if (lowerCaseMessage === 'hasta luego') {
+                return 'Hasta luego, que tengas un buen día.';
+            } else if (lowerCaseMessage in peruvian_food_qa) {
+                return peruvian_food_qa[lowerCaseMessage];
+            } else {
+                return 'Lo siento, no tengo información sobre eso en este momento.';
+            }
+        }
+
+        function resetChat() {
+            var chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML = '';
+        }
+    </script>
+</body>
+</html>

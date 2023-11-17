@@ -1,0 +1,41 @@
+
+/* static/style.css */
+
+/* Colores */
+:root {
+    --bg-color: #f4f4f4;
+    --user-msg-color: #90EE90; /* Verde claro */
+    --bot-msg-color: #add8e6; /* Azul claro */
+}
+
+/* Estilos generales del cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal de la página */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Estilos generales de los mensajes */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Estilos específicos para mensajes del usuario */
+.user-message {
+    background-color: var(--user-msg-color);
+}
+
+/* Estilos específicos para mensajes del bot */
+.bot-message {
+    background-color: var(--bot-msg-color);
+}
